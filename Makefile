@@ -7,4 +7,6 @@ build:
 install:
 	make -C app install
 
+run:
+	make -C app run
 .PHONY: build

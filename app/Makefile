@@ -6,5 +6,6 @@ build:
 
 install:
 	./gradlew installDist
-
+run:
+	./gradlew build sonar --info
 .PHONY: build
