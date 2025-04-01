@@ -7,11 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class App {
-    public static final int PORT = 7070;
 
     public static void main(String[] args) throws IOException {
         Javalin app = getApp();
-        app.start(PORT);
+        app.start(7070);
     }
     public static Javalin getApp() throws IOException {
         var app = Javalin.create(config -> {
@@ -22,3 +21,4 @@ public class App {
         return app;
     }
 }
+
