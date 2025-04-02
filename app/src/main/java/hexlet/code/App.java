@@ -23,7 +23,8 @@ public class App {
     }
 
     private static String getUrl() {
-        String url = System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:Url");
+        String url = System.getenv().getOrDefault("JDBC_DATABASE_URL",
+                                        "jdbc:h2:mem:url;DB_CLOSE_DELAY=-1");
 
         return url;
     }
@@ -47,7 +48,7 @@ public class App {
         var dataSource = new HikariDataSource(hikariConfig);
         var sql = readResourceFile("schema.sql");
 
-        log.info(sql);
+        //log.info(sql);
         try (var connection = dataSource.getConnection();
             var statement = connection.createStatement())    {
             statement.execute(sql);
