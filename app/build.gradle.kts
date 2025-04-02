@@ -21,11 +21,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("org.slf4j:slf4j-simple:2.0.16")
     implementation("io.javalin:javalin:6.1.3")
+    implementation("com.zaxxer:HikariCP:6.3.0")
+    testImplementation("com.h2database:h2:2.3.232")
     compileOnly("org.projectlombok:lombok:1.18.36")
+
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 sonar {
