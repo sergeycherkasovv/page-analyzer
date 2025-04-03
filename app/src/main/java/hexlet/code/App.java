@@ -19,14 +19,12 @@ public class App {
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "7070");
-        return Integer.valueOf(port);
+        return Integer.parseInt(port);
     }
 
     private static String getUrl() {
-        String url = System.getenv().getOrDefault("JDBC_DATABASE_URL",
+        return System.getenv().getOrDefault("JDBC_DATABASE_URL",
                                         "jdbc:h2:mem:url;DB_CLOSE_DELAY=-1");
-
-        return url;
     }
 
     private static String readResourceFile(String fileName) throws IOException {
@@ -43,13 +41,15 @@ public class App {
     public static Javalin getApp() throws IOException, SQLException {
 
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(getUrl());
-        hikariConfig.setDriverClassName("org.postgresql.Driver");
+        //hikariConfig.setDriverClassName("org.h2.Driver");
+        //hikariConfig.setDriverClassName("org.postgresql.Driver");
+        hikariConfig.setJdbcUrl("jdbc:h2:mem:url;DB_CLOSE_DELAY=-1");
+
 
         var dataSource = new HikariDataSource(hikariConfig);
         var sql = readResourceFile("schema.sql");
 
-        //log.info(sql);
+        log.info(sql);
         try (var connection = dataSource.getConnection();
             var statement = connection.createStatement())    {
             statement.execute(sql);
