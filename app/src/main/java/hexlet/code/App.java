@@ -16,15 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class App {
+    private static final String JDBC_H2_URL = "jdbc:h2:mem:project";
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "7070");
         return Integer.parseInt(port);
     }
 
-    private static String getUrl() {
-        return System.getenv().getOrDefault("JDBC_DATABASE_URL",
-                                        "jdbc:h2:mem:url;DB_CLOSE_DELAY=-1");
+    private static String getDbUrl() {
+        return System.getenv().getOrDefault("JDBC_DATABASE_URL", JDBC_H2_URL);
     }
 
     private static String readResourceFile(String fileName) throws IOException {
@@ -35,7 +35,7 @@ public class App {
     }
 
     private static String getDriver() {
-        String url = getUrl();
+        String url = getDbUrl();
         return url.startsWith("jdbc:postgresql") ? "org.postgresql.Driver" : "org.h2.Driver";
     }
 
@@ -45,17 +45,17 @@ public class App {
     }
     public static Javalin getApp() throws IOException, SQLException {
 
-        log.info(getUrl());
+        log.info("Using database URL: {}", getDbUrl());
 
         var hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName(getDriver());
-        hikariConfig.setJdbcUrl(getUrl());
+        hikariConfig.setJdbcUrl(getDbUrl());
 
 
         var dataSource = new HikariDataSource(hikariConfig);
         var sql = readResourceFile("schema.sql");
 
-        log.info(sql);
+        log.info("Executing SQL schema: \n{}", sql);
         try (var connection = dataSource.getConnection();
             var statement = connection.createStatement())    {
             statement.execute(sql);
