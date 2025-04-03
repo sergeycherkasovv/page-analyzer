@@ -16,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class App {
-    private static final String JDBC_H2_URL = "jdbc:h2:mem:project";
+    private static final String JDBC_H2_URL = "jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;";
 
     private static int getPort() {
-        String port = System.getenv().getOrDefault("PORT", "7070");
+        String port = System.getenv().getOrDefault("PORT", "5432");
         return Integer.parseInt(port);
     }
 
