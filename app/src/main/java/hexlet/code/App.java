@@ -34,11 +34,6 @@ public class App {
         }
     }
 
-    private static String getDriver() {
-        String url = getDbUrl();
-        return url.startsWith("jdbc:postgresql") ? "org.postgresql.Driver" : "org.h2.Driver";
-    }
-
     public static void main(String[] args) throws IOException, SQLException {
         Javalin app = getApp();
         app.start(getPort());
@@ -48,7 +43,6 @@ public class App {
         log.info("Using database URL: {}", getDbUrl());
 
         var hikariConfig = new HikariConfig();
-        //hikariConfig.setDriverClassName(getDriver());
         hikariConfig.setJdbcUrl(getDbUrl());
 
 
