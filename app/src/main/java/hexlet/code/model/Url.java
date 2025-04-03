@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Url {
-    private int id;
+    private Long id;
     private String name;
     private LocalDateTime createdAt;
 
