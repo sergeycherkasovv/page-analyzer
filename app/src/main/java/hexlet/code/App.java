@@ -23,7 +23,7 @@ public class App {
         return Integer.parseInt(port);
     }
 
-    private static String getDbUrl() {
+    private static String getDatabaseUrl() {
         return System.getenv().getOrDefault("JDBC_DATABASE_URL", JDBC_H2_URL);
     }
 
@@ -40,10 +40,10 @@ public class App {
     }
     public static Javalin getApp() throws IOException, SQLException {
 
-        log.info("Using database URL: {}", getDbUrl());
+        log.info("Using database URL: {}", getDatabaseUrl());
 
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(getDbUrl());
+        hikariConfig.setJdbcUrl(getDatabaseUrl());
 
 
         var dataSource = new HikariDataSource(hikariConfig);
