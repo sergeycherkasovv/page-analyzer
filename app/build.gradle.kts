@@ -5,6 +5,7 @@ plugins {
     id("java")
     checkstyle
     application
+    id("io.freefair.lombok") version "8.13.1"
     id("org.sonarqube") version "6.0.1.5171"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -22,10 +23,9 @@ repositories {
 
 dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.16")
-    implementation("io.javalin:javalin:6.1.3")
+    implementation("io.javalin:javalin:6.5.0")
     implementation("com.zaxxer:HikariCP:6.3.0")
     testImplementation("com.h2database:h2:2.2.224")
-    compileOnly("org.projectlombok:lombok:1.18.36")
     implementation("org.postgresql:postgresql:42.7.4")
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
