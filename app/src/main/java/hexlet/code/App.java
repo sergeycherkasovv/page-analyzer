@@ -34,16 +34,22 @@ public class App {
         }
     }
 
+    private static String getDriver() {
+        String url = getUrl();
+        return url.startsWith("jdbc:postgresql") ? "org.postgresql.Driver" : "org.h2.Driver";
+    }
+
     public static void main(String[] args) throws IOException, SQLException {
         Javalin app = getApp();
         app.start(getPort());
     }
     public static Javalin getApp() throws IOException, SQLException {
 
+        log.info(getUrl());
+
         var hikariConfig = new HikariConfig();
-        //hikariConfig.setDriverClassName("org.h2.Driver");
-        //hikariConfig.setDriverClassName("org.postgresql.Driver");
-        hikariConfig.setJdbcUrl("jdbc:h2:mem:url;DB_CLOSE_DELAY=-1");
+        hikariConfig.setDriverClassName(getDriver());
+        hikariConfig.setJdbcUrl(getUrl());
 
 
         var dataSource = new HikariDataSource(hikariConfig);
