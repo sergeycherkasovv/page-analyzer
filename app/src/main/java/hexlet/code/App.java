@@ -60,7 +60,7 @@ public class App {
             config.bundledPlugins.enableDevLogging();
         });
 
-        app.get("/", ctx -> ctx.result("Hello World"));
+        app.get("/", ctx -> ctx.result("Hello World?"));
         return app;
     }
 }
