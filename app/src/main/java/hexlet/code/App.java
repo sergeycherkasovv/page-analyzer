@@ -1,17 +1,19 @@
 package hexlet.code;
 
+import hexlet.code.util.NamedRoutes;
+import io.javalin.Javalin;
+import io.javalin.rendering.template.JavalinJte;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import hexlet.code.repository.BaseRepository;
-import io.javalin.Javalin;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.stream.Collectors;
 
+import java.sql.SQLException;
+import java.io.IOException;
+
+import hexlet.code.repository.BaseRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -38,6 +40,7 @@ public class App {
         Javalin app = getApp();
         app.start(getPort());
     }
+
     public static Javalin getApp() throws IOException, SQLException {
 
         log.info("Using database URL: {}", getDatabaseUrl());
@@ -58,9 +61,10 @@ public class App {
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte(Template.createTemplateEngine()));
         });
 
-        app.get("/", ctx -> ctx.result("Hello World?"));
+        app.get(NamedRoutes.rootPath(), ctx -> ctx.render("layout/page.jte"));
         return app;
     }
 }
