@@ -9,4 +9,7 @@ install:
 
 run:
 	make -C app run
+
+start:
+	make -C app start
 .PHONY: build
