@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
