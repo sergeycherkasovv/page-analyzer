@@ -1,6 +1,8 @@
 @import gg.jte.Content
+@import hexlet.code.dto.BasePage
 @import hexlet.code.util.NamedRoutes
 @param Content content
+@param BasePage page = null
 
 <!doctype html>
 <html lang="en">
@@ -28,6 +30,13 @@
             </div>
           </div>
         </nav>
+
+        @if(page != null && page.getFlash() != null)
+            <div class="alert alert-${page.getFlashType()}" role="alert">
+                ${page.getFlash()}
+            </div>
+        @endif
+
         <main class="flex-grow-1">${content}
         </main>
     <footer class="footer border-top py-4 mt-5 bg-dark">
