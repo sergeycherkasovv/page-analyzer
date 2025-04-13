@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import hexlet.code.controller.RootController;
+import hexlet.code.controller.UrlController;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
@@ -44,7 +46,6 @@ public class App {
     public static Javalin getApp() throws IOException, SQLException {
 
         log.info("Using database URL: {}", getDatabaseUrl());
-
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(getDatabaseUrl());
 
@@ -64,7 +65,9 @@ public class App {
             config.fileRenderer(new JavalinJte(Template.createTemplateEngine()));
         });
 
-        app.get(NamedRoutes.rootPath(), ctx -> ctx.render("layout/page.jte"));
+        app.get(NamedRoutes.rootPath(), RootController::index);
+        app.post(NamedRoutes.urlsPath(), UrlController::create);
+        app.get(NamedRoutes.urlsPath(), UrlController::index);
         return app;
     }
 }
