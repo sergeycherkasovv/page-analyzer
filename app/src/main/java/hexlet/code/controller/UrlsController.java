@@ -37,33 +37,33 @@ public class UrlsController {
             ctx.redirect(NamedRoutes.urlsPath());
 
             log.info("Страница успешно добавлена");
-        } catch (URISyntaxException | MalformedURLException e) {
+        } catch (URISyntaxException | MalformedURLException |  IllegalArgumentException e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.render(NamedRoutes.rootPath());
+            ctx.redirect(NamedRoutes.rootPath());
 
-            log.error("Некорректный URL");
+            log.error("Некорректный URL", e);
         } catch (SQLDataException e) {
             ctx.sessionAttribute("flash", "Страница уже существует");
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.render(NamedRoutes.urlsPath());
+            ctx.redirect(NamedRoutes.urlsPath());
 
-            log.error("Страница уже существует");
+            log.error("Страница уже существует", e);
         }
     }
 
     public static void index(Context ctx) throws SQLException {
-        var url = UrlsRepository.getEntites();
-        var page = new UrlsPage(url);
+        var urls = UrlsRepository.getEntities();
+        var page = new UrlsPage(urls);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("urls/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) throws SQLException {
-        var id = ctx.formParamAsClass("id", Long.class).get();
+        var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlsRepository.find(id)
-                .orElseThrow(() -> new RuntimeException("Utl not found"));
+                .orElseThrow(() -> new RuntimeException("Url not found"));
 
         var page = new UrlPage(url);
         ctx.render("urls/show.jte", model("page", page));
