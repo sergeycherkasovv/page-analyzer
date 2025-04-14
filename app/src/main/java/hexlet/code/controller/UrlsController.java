@@ -22,8 +22,8 @@ public class UrlsController {
     public static void create(Context ctx) throws SQLException {
 
         try {
-            var link = new URI(ctx.formParam("name")).toURL();
-            var name = link.getProtocol() + "://" + link.getAuthority();
+            var linkUrl = new URI(ctx.formParam("url")).toURL();
+            var name = linkUrl.getProtocol() + "://" + linkUrl.getAuthority();
 
             if (UrlsRepository.findByName(name).isPresent()) {
                 throw new SQLDataException("Страница уже существует");
@@ -57,7 +57,7 @@ public class UrlsController {
         var page = new UrlsPage(url);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
-        ctx.render("urls/index.jte", model(page, page));
+        ctx.render("urls/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) throws SQLException {
