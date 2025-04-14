@@ -22,30 +22,27 @@ public class UrlsController {
     public static void create(Context ctx) throws SQLException {
 
         try {
-            var linkUrl = new URI(ctx.formParam("url")).toURL();
-            var name = linkUrl.getProtocol() + "://" + linkUrl.getAuthority();
+            var name = normalizeUrl(ctx.formParam("url"));
 
             if (UrlsRepository.findByName(name).isPresent()) {
                 throw new SQLDataException("Страница уже существует");
             }
+
             var createdAt = new Timestamp(System.currentTimeMillis());
             var url = new Url(name, createdAt);
             UrlsRepository.save(url);
 
-            ctx.sessionAttribute("flash", "Страница успешно добавлена");
-            ctx.sessionAttribute("flash-type", "success");
+            alertFlash(ctx, "Страница успешно добавлена", "success");
             ctx.redirect(NamedRoutes.urlsPath());
 
             log.info("Страница успешно добавлена");
         } catch (URISyntaxException | MalformedURLException |  IllegalArgumentException e) {
-            ctx.sessionAttribute("flash", "Некорректный URL");
-            ctx.sessionAttribute("flash-type", "danger");
+            alertFlash(ctx, "Некорректный URL", "danger");
             ctx.redirect(NamedRoutes.rootPath());
 
             log.error("Некорректный URL", e);
         } catch (SQLDataException e) {
-            ctx.sessionAttribute("flash", "Страница уже существует");
-            ctx.sessionAttribute("flash-type", "danger");
+            alertFlash(ctx, "Страница уже существует", "danger");
             ctx.redirect(NamedRoutes.urlsPath());
 
             log.error("Страница уже существует", e);
@@ -67,5 +64,18 @@ public class UrlsController {
 
         var page = new UrlPage(url);
         ctx.render("urls/show.jte", model("page", page));
+    }
+
+
+    private static String normalizeUrl(String rawUrl) throws URISyntaxException,
+                                                            MalformedURLException,
+                                                            IllegalArgumentException {
+    var url = new URI(rawUrl).toURL();
+    return url.getProtocol() + "://" + url.getAuthority();
+    }
+
+    private static void alertFlash(Context ctx, String message, String flashType) {
+        ctx.sessionAttribute("flash", message);
+        ctx.sessionAttribute("flash-type", flashType);
     }
 }
