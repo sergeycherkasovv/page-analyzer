@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-link" aria-current="page" href="${NamedRoutes.rootPath()}">Главная</a>
-                <a class="nav-link" href="#">Сайты</a>
+                <a class="nav-link" href="${NamedRoutes.urlsPath()}">Сайты</a>
               </div>
             </div>
           </div>
