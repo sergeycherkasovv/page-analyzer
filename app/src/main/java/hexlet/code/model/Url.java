@@ -17,4 +17,8 @@ public class Url {
         this.name = name;
         this.createdAt = createdAt;
     }
+
+    public String toString() {
+        return String.valueOf(createdAt);
+    }
 }
