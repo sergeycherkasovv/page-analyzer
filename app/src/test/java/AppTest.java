@@ -15,7 +15,7 @@ public class AppTest {
     private static Javalin app;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         app = App.getApp();
     }
 
