@@ -2,50 +2,48 @@ package hexlet.code.controller;
 
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
-import hexlet.code.model.Url;
 import hexlet.code.repository.UrlsRepository;
 import hexlet.code.util.NamedRoutes;
+import hexlet.code.util.UrlUtils;
 import io.javalin.http.Context;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 @Slf4j
 public class UrlsController {
     public static void create(Context ctx) throws SQLException {
+        var rawUrl = ctx.formParam("url");
 
         try {
-            var name = normalizeUrl(ctx.formParam("url"));
 
-            if (UrlsRepository.findByName(name).isPresent()) {
-                throw new SQLDataException("Страница уже существует");
+            if (rawUrl == null || rawUrl.isBlank()) {
+                UrlUtils.alertFlash(ctx, "URL не может быть пустым", "danger");
+                ctx.render(NamedRoutes.rootPath()).status(422);
+                return;
             }
 
-            var createdAt = new Timestamp(System.currentTimeMillis());
-            var url = new Url(name, createdAt);
-            UrlsRepository.save(url);
+            UrlUtils.createUrl(rawUrl);
 
-            alertFlash(ctx, "Страница успешно добавлена", "success");
+            UrlUtils.alertFlash(ctx, "Страница успешно добавлена", "success");
             ctx.redirect(NamedRoutes.urlsPath());
 
-            log.info("Страница успешно добавлена");
+            log.info("Страница успешно добавлена: {}", rawUrl);
         } catch (URISyntaxException | MalformedURLException |  IllegalArgumentException e) {
-            alertFlash(ctx, "Некорректный URL", "danger");
+            UrlUtils.alertFlash(ctx, "Некорректный URL", "danger");
             ctx.redirect(NamedRoutes.rootPath());
 
-            log.error("Некорректный URL", e);
+            log.error("Ошибка валидации URL: {}", rawUrl, e);
         } catch (SQLDataException e) {
-            alertFlash(ctx, "Страница уже существует", "danger");
+            UrlUtils.alertFlash(ctx, "Страница уже существует", "danger");
             ctx.redirect(NamedRoutes.urlsPath());
 
-            log.error("Страница уже существует", e);
+            log.warn("Попытка добавить уже существующий URL: {}", rawUrl);
         }
     }
 
@@ -67,15 +65,5 @@ public class UrlsController {
     }
 
 
-    private static String normalizeUrl(String rawUrl) throws URISyntaxException,
-                                                            MalformedURLException,
-                                                            IllegalArgumentException {
-    var url = new URI(rawUrl).toURL();
-    return url.getProtocol() + "://" + url.getAuthority();
-    }
 
-    private static void alertFlash(Context ctx, String message, String flashType) {
-        ctx.sessionAttribute("flash", message);
-        ctx.sessionAttribute("flash-type", flashType);
-    }
 }
