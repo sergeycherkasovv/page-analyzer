@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class RootController {
-    public static void index (Context ctx) throws SQLException {
+    public static void index(Context ctx) throws SQLException {
         var urls = UrlsRepository.getEntities();
         var page = new UrlsPage(urls);
         page.setFlash(ctx.consumeSessionAttribute("flash"));

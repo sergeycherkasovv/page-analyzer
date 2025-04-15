@@ -13,11 +13,10 @@ import java.sql.Timestamp;
 
 public class UrlUtils {
 
-    public static String normalizeUrl(String rawUrl) throws URISyntaxException,
-            MalformedURLException,
+    public static String normalizeUrl(String rawUrl) throws URISyntaxException, MalformedURLException,
                                                             IllegalArgumentException {
-    var url = new URI(rawUrl).toURL();
-    return url.getProtocol() + "://" + url.getAuthority();
+        var url = new URI(rawUrl).toURL();
+        return url.getProtocol() + "://" + url.getAuthority();
     }
 
     public static void alertFlash(Context ctx, String message, String flashType) {
