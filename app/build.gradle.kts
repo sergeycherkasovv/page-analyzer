@@ -5,6 +5,7 @@ plugins {
     id("java")
     checkstyle
     application
+    jacoco
     id("io.freefair.lombok") version "8.13.1"
     id("org.sonarqube") version "6.0.1.5171"
     id("com.github.johnrengelman.shadow") version "8.1.1"
@@ -32,9 +33,9 @@ dependencies {
     implementation("com.h2database:h2:2.3.232")
     implementation("org.postgresql:postgresql:42.7.4")
 
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("org.assertj:assertj-core:3.26.3")
     testImplementation(platform("org.junit:junit-bom:5.11.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.1")
 }
 
 sonar {
@@ -55,3 +56,5 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+tasks.jacocoTestReport { reports { xml.required.set(true) } }
