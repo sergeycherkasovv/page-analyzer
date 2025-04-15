@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AppTest {
- private static Javalin app;
+    private static Javalin app;
     private static Timestamp createdAt;
 
     @BeforeEach
