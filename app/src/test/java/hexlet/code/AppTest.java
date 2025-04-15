@@ -1,4 +1,5 @@
-import hexlet.code.App;
+package hexlet.code;
+
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlsRepository;
 import hexlet.code.util.NamedRoutes;
@@ -11,8 +12,8 @@ import java.sql.Timestamp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AppTest {
-    private static Javalin app;
+class AppTest {
+ private static Javalin app;
     private static Timestamp createdAt;
 
     @BeforeEach
@@ -32,7 +33,7 @@ public class AppTest {
     }
 
     @Test
-    void  testUrlsPage() throws Exception {
+    void testUrlsPage() throws Exception {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get(NamedRoutes.urlsPath());
             assertThat(response.code()).isEqualTo(200);
