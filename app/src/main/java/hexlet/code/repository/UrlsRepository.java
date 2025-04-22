@@ -4,7 +4,6 @@ import hexlet.code.model.Url;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +35,8 @@ public class UrlsRepository extends BaseRepository {
             stmt.setLong(1, id);
             var resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                Timestamp createdAt = resultSet.getTimestamp("created_at");
+                var name = resultSet.getString("name");
+                var createdAt = resultSet.getTimestamp("created_at");
                 var url = new Url(name, createdAt);
                 url.setId(id);
                 return Optional.of(url);
@@ -55,7 +54,7 @@ public class UrlsRepository extends BaseRepository {
             var resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 Long id = resultSet.getLong("id");
-                Timestamp createdAt = resultSet.getTimestamp("created_at");
+                var createdAt = resultSet.getTimestamp("created_at");
                 var url = new Url(name, createdAt);
                 url.setId(id);
                 return Optional.of(url);
@@ -74,7 +73,7 @@ public class UrlsRepository extends BaseRepository {
             while (resultSet.next()) {
                 var id = resultSet.getLong("id");
                 var name = resultSet.getString("name");
-                Timestamp createdAt = resultSet.getTimestamp("created_at");
+                var createdAt = resultSet.getTimestamp("created_at");
                 var url = new Url(name, createdAt);
                 url.setId(id);
                 result.add(url);
