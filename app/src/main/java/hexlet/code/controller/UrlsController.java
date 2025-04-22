@@ -2,6 +2,8 @@ package hexlet.code.controller;
 
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
+import hexlet.code.model.Url;
+import hexlet.code.repository.UrlChecksRepository;
 import hexlet.code.repository.UrlsRepository;
 import hexlet.code.util.NamedRoutes;
 import hexlet.code.util.UrlUtils;
@@ -12,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
@@ -28,7 +31,7 @@ public class UrlsController {
                 return;
             }
 
-            UrlUtils.createUrl(rawUrl);
+            createUrl(rawUrl);
 
             UrlUtils.alertFlash(ctx, "Страница успешно добавлена", "success");
             ctx.redirect(NamedRoutes.urlsPath());
@@ -49,9 +52,13 @@ public class UrlsController {
 
     public static void index(Context ctx) throws SQLException {
         var urls = UrlsRepository.getEntities();
-        var page = new UrlsPage(urls);
+        var urlLastCheck = UrlChecksRepository.findLatestChecks();
+        var page = new UrlsPage(urls, urlLastCheck);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
+
+
+
         ctx.render("urls/index.jte", model("page", page));
     }
 
@@ -59,11 +66,20 @@ public class UrlsController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlsRepository.find(id)
                 .orElseThrow(() -> new RuntimeException("Url not found"));
+        var urlChecks = UrlChecksRepository.getEntities();
 
-        var page = new UrlPage(url);
+        var page = new UrlPage(url, urlChecks);
         ctx.render("urls/show.jte", model("page", page));
     }
 
+    public static void createUrl(String rawUrl) throws URISyntaxException, MalformedURLException, SQLException {
+        String normalizedUrl = UrlUtils.normalizeUrl(rawUrl);
 
-
+        if (UrlsRepository.findByName(normalizedUrl).isPresent()) {
+            throw new SQLDataException("URL уже существует: " + normalizedUrl);
+        }
+        var createdAt = new Timestamp(System.currentTimeMillis());
+        var url = new Url(normalizedUrl, createdAt);
+        UrlsRepository.save(url);
+    }
 }
