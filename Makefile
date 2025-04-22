@@ -12,4 +12,7 @@ run:
 
 start:
 	make -C app start
+
+test:
+	make -C app test
 .PHONY: build

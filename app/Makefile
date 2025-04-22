@@ -11,4 +11,7 @@ run:
 
 start:
 	./gradlew run
+
+test:
+	./gradlew test
 .PHONY: build
