@@ -20,12 +20,12 @@
                     </tr>
                     <tr>
                         <td>Дата создания</td>
-                        <td>${page.getUrl().toString()}</td>
+                        <td>${page.getUrl().getFormatedTime()}</td>
                     </tr>
                 </tbody>
             </table>
             <h2 class="mt-5">Проверки</h2>
-            <form method="post" action="${NamedRoutes.urlPath(page.getUrl().getId())}">
+            <form method="post" action="${NamedRoutes.urlPathChecks(page.getUrl().getId())}">
                 <button type="submit" class="btn btn-primary">Запустить проверку</button>
             </form>
             <table class="table table-bordered table-hover mt-3">
@@ -40,14 +40,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    @for (var urlChecks : page.getUrlChecks())
+                        @if(urlChecks.getUrlId().equals(page.getUrl().getId()))
+                            <tr>
+                                <td>${urlChecks.getId()}</td>
+                                <td>${urlChecks.getStatusCode()}</td>
+                                <td>${urlChecks.getTitle()}</td>
+                                <td>${urlChecks.getH1()}</td>
+                                <td>${urlChecks.getDescription()}</td>
+                                <td>${urlChecks.getFormatedTime()}</td>
+                            </tr>
+                        @endif
+                    @endfor
                 </tbody>
             </table>
         </div>
