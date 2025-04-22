@@ -4,7 +4,7 @@ import hexlet.code.util.NamedRoutes;
 @SuppressWarnings("unchecked")
 public final class JteindexGenerated {
 	public static final String JTE_NAME = "urls/index.jte";
-	public static final int[] JTE_LINE_INFO = {0,0,1,2,2,2,2,4,4,7,7,21,21,23,23,23,25,25,25,25,25,25,25,25,25,25,25,25,30,30,35,35,35,36,36,36,2,2,2,2};
+	public static final int[] JTE_LINE_INFO = {0,0,1,2,2,2,2,4,4,7,7,21,21,23,23,23,25,25,25,25,25,25,25,25,25,25,25,25,27,27,28,28,28,29,29,29,30,30,32,32,37,37,37,38,38,38,2,2,2,2};
 	public static void render(gg.jte.html.HtmlTemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, UrlsPage page) {
 		jteOutput.writeContent("\n");
 		gg.jte.generated.ondemand.layout.JtepageGenerated.render(jteOutput, jteHtmlInterceptor, new gg.jte.html.HtmlContent() {
@@ -26,7 +26,17 @@ public final class JteindexGenerated {
 					jteOutput.writeContent(">");
 					jteOutput.setContext("a", null);
 					jteOutput.writeUserContent(url.getName());
-					jteOutput.writeContent("</a>\n                            </td>\n                            <td></td>\n                            <td></td>\n                        </tr>\n                    ");
+					jteOutput.writeContent("</a>\n                            </td>\n                            ");
+					if (page.getLastCheck().containsKey(url.getId())) {
+						jteOutput.writeContent("\n                                <td>");
+						jteOutput.setContext("td", null);
+						jteOutput.writeUserContent(page.getLastCheck().get(url.getId()).getFormatedTime());
+						jteOutput.writeContent("</td>\n                                <td>");
+						jteOutput.setContext("td", null);
+						jteOutput.writeUserContent(page.getLastCheck().get(url.getId()).getStatusCode());
+						jteOutput.writeContent("</td>\n                            ");
+					}
+					jteOutput.writeContent("\n                        </tr>\n                    ");
 				}
 				jteOutput.writeContent("\n                    </tbody>\n                </table>\n            </div>\n        </section>\n    ");
 			}
