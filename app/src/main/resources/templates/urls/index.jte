@@ -24,8 +24,10 @@
                             <td>
                                 <a href="${NamedRoutes.urlPath(url.getId())}">${url.getName()}</a>
                             </td>
-                            <td></td>
-                            <td></td>
+                            @if(page.getLastCheck().containsKey(url.getId()))
+                                <td>${page.getLastCheck().get(url.getId()).getFormatedTime()}</td>
+                                <td>${page.getLastCheck().get(url.getId()).getStatusCode()}</td>
+                            @endif
                         </tr>
                     @endfor
                     </tbody>
