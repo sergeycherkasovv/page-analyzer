@@ -4,7 +4,7 @@ import hexlet.code.util.NamedRoutes;
 @SuppressWarnings("unchecked")
 public final class JteindexGenerated {
 	public static final String JTE_NAME = "urls/index.jte";
-	public static final int[] JTE_LINE_INFO = {0,0,1,2,2,2,2,4,4,7,7,21,21,23,23,23,25,25,25,25,25,25,25,25,25,25,25,25,27,27,28,28,28,29,29,29,30,30,32,32,37,37,37,38,38,38,2,2,2,2};
+	public static final int[] JTE_LINE_INFO = {0,0,1,2,2,2,2,4,4,7,7,21,21,23,23,23,25,25,25,25,25,25,25,25,25,25,25,25,27,27,28,28,28,29,29,29,30,30,33,33,35,35,40,40,40,41,41,41,2,2,2,2};
 	public static void render(gg.jte.html.HtmlTemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, UrlsPage page) {
 		jteOutput.writeContent("\n");
 		gg.jte.generated.ondemand.layout.JtepageGenerated.render(jteOutput, jteHtmlInterceptor, new gg.jte.html.HtmlContent() {
@@ -35,6 +35,8 @@ public final class JteindexGenerated {
 						jteOutput.setContext("td", null);
 						jteOutput.writeUserContent(page.getLastCheck().get(url.getId()).getStatusCode());
 						jteOutput.writeContent("</td>\n                            ");
+					} else {
+						jteOutput.writeContent("\n                                <td></td>\n                                <td></td>\n                            ");
 					}
 					jteOutput.writeContent("\n                        </tr>\n                    ");
 				}

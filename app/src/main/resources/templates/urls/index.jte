@@ -27,6 +27,9 @@
                             @if(page.getLastCheck().containsKey(url.getId()))
                                 <td>${page.getLastCheck().get(url.getId()).getFormatedTime()}</td>
                                 <td>${page.getLastCheck().get(url.getId()).getStatusCode()}</td>
+                            @else
+                                <td></td>
+                                <td></td>
                             @endif
                         </tr>
                     @endfor
