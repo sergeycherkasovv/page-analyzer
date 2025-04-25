@@ -34,4 +34,4 @@ public class DataBaseService {
     private static String getDatabaseUrl() {
         return System.getenv().getOrDefault("JDBC_DATABASE_URL", JDBC_H2_URL);
     }
- }
+}
