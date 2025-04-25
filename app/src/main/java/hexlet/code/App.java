@@ -17,6 +17,7 @@ public class App {
     public static Javalin getApp() throws IOException, SQLException {
 
         DataBaseService.connectedDataBase();
+
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte(Template.createTemplateEngine()));
