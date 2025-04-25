@@ -14,7 +14,13 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sergeycherkasovv_java-project-72&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sergeycherkasovv_java-project-72)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=sergeycherkasovv_java-project-72&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=sergeycherkasovv_java-project-72)
 
-[Page Analyzer](https://java-project-72-27yt.onrender.com)
+**[Page Analyzer](https://java-project-72-27yt.onrender.com)** — полноценное веб-приложение, реализованное на фреймворке **Javalin** по архитектуре **MVC**. Основная задача — дать практический опыт в создании современных серверных приложений: от роутинга и работы с HTTP до интеграции с базой данных и деплоя в продакшен.
+
+Приложение позволяет:
+
+- Добавлять сайты и сохранять их в базу данных.
+- Выполнять проверки сайтов: извлекать статус-код, `<title>`, `<h1>` и описание (`<meta name="description">`).
+- Отображать информацию на страницах с помощью шаблонизатора **JTE** и CSS-фреймворка **Bootstrap**.
 
 ## 🚀 Технологии
 
