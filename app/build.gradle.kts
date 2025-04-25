@@ -2,10 +2,10 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    id("java")
     checkstyle
     application
     jacoco
+    id("java")
     id("io.freefair.lombok") version "8.13.1"
     id("org.sonarqube") version "6.0.1.5171"
     id("com.github.johnrengelman.shadow") version "8.1.1"
@@ -24,9 +24,11 @@ repositories {
 
 dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.16")
+
     implementation("io.javalin:javalin:6.2.0")
     implementation("io.javalin:javalin-bundle:6.2.0")
     implementation("io.javalin:javalin-rendering:6.1.6")
+
     implementation("gg.jte:jte:3.2.0")
     implementation("com.konghq:unirest-java:4.0.0-RC2")
     implementation("org.jsoup:jsoup:1.18.3")
@@ -38,14 +40,15 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.26.3")
     testImplementation(platform("org.junit:junit-bom:5.11.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.1")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }
 
 sonar {
- properties {
- property("sonar.projectKey", "sergeycherkasovv_java-project-72")
- property("sonar.organization", "sergeycherkasovv")
- property("sonar.host.url", "https://sonarcloud.io")
- }
+     properties {
+     property("sonar.projectKey", "sergeycherkasovv_java-project-72")
+     property("sonar.organization", "sergeycherkasovv")
+     property("sonar.host.url", "https://sonarcloud.io")
+     }
 }
 
 tasks.test {
@@ -59,4 +62,8 @@ tasks.test {
     }
 }
 
-tasks.jacocoTestReport { reports { xml.required.set(true) } }
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)
+    }
+}
