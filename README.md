@@ -1,4 +1,4 @@
-[Demo](https://java-project-72-27yt.onrender.com)
+[Page Analyzer](https://java-project-72-27yt.onrender.com)
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/sergeycherkasovv/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/sergeycherkasovv/java-project-72/actions)
 
