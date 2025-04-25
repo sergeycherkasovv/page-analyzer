@@ -29,7 +29,7 @@ public class UrlCheck implements DataFormated {
     }
 
     @Override
-    public String getFormatedTime() {
+    public final String getFormatedTime() {
         return createdAt.toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }
