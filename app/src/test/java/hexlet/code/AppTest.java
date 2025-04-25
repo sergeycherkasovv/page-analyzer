@@ -45,7 +45,7 @@ class AppTest {
     }
 
     @Test
-    void testMainPage(){
+    void testMainPage() {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get(NamedRoutes.rootPath());
             assertThat(response.code()).isEqualTo(200);
