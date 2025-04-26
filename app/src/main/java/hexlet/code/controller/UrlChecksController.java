@@ -10,7 +10,6 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -27,9 +26,8 @@ public class UrlChecksController {
         String h1 = doc.select("h1").text();
         String title = doc.title();
         String description = doc.select("meta[name=description]").attr("content");
-        var createdAt = new Timestamp(System.currentTimeMillis());
 
-        var check = new UrlCheck(urlId, status, title, h1, description, createdAt);
+        var check = new UrlCheck(urlId, status, title, h1, description);
         UrlChecksRepository.save(check);
         UrlUtils.alertFlash(ctx, "Страница успешно проверена", "success");
         ctx.redirect(NamedRoutes.urlPath(urlId));
