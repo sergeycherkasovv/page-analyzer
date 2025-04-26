@@ -77,5 +77,5 @@
     │       ├── templates/             # JTE-шаблоны
     │       ├── schema.sql             # Скрипт создания таблиц
     ├── test/                          # Юнит и интеграционные тесты c MockWebServer
-    ├── build.gradle.kts              # Сборка Gradle
-    └── README.md                     # Документация
+    ├── build.gradle.kts               # Сборка Gradle
+    └── README.md                      # Описание проекта и Bages
