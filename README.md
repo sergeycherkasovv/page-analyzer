@@ -1,3 +1,6 @@
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/sergeycherkasovv/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/sergeycherkasovv/java-project-72/actions)
+
 ### My tests and linter status:
 [![my-check](https://github.com/sergeycherkasovv/java-project-72/actions/workflows/blank.yml/badge.svg)](https://github.com/sergeycherkasovv/java-project-72/actions/workflows/blank.yml)
 
@@ -14,7 +17,10 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sergeycherkasovv_java-project-72&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sergeycherkasovv_java-project-72)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=sergeycherkasovv_java-project-72&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=sergeycherkasovv_java-project-72)
 
-**[Page Analyzer](https://java-project-72-27yt.onrender.com)** — полноценное веб-приложение, реализованное на фреймворке **Javalin** по архитектуре **MVC**. Основная задача — дать практический опыт в создании современных серверных приложений: от роутинга и работы с HTTP до интеграции с базой данных и деплоя в продакшен.
+**[Page Analyzer](https://java-project-72-27yt.onrender.com)** — полноценное веб-приложение, 
+реализованное на фреймворке **Javalin** по архитектуре **MVC**. 
+Основная задача — дать практический опыт в создании современных серверных приложений: 
+от роутинга и работы с HTTP до интеграции с базой данных и деплоя в продакшен.
 
 Приложение позволяет:
 
@@ -36,8 +42,6 @@
 - [JUnit 5](https://junit.org/junit5/), 
   [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) — тестирование  
 - Gradle, GitHub Actions, Codecov — CI/CD и покрытие
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/sergeycherkasovv/java-project-72/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/sergeycherkasovv/java-project-72/actions)
 
 ## 🔧 Установка и запуск локально
 1. Клонировать репозиторий:  
@@ -58,8 +62,8 @@
     ``` bash
     make test
    ```
+   
 ## 🗂 Структура проекта
-    ```bash
     src/
     ├── main/
     │   ├── java/hexlet/code/
@@ -75,7 +79,3 @@
     ├── test/                          # Юнит и интеграционные тесты c MockWebServer
     ├── build.gradle.kts              # Сборка Gradle
     └── README.md                     # Документация
-    ```
-
-## ☁️ Деплой
-👉 https://your-app.onrender.com
