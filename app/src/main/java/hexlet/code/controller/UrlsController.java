@@ -14,7 +14,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
@@ -78,8 +77,7 @@ public class UrlsController {
         if (UrlsRepository.findByName(normalizedUrl).isPresent()) {
             throw new SQLDataException("URL уже существует: " + normalizedUrl);
         }
-        var createdAt = new Timestamp(System.currentTimeMillis());
-        var url = new Url(normalizedUrl, createdAt);
+        var url = new Url(normalizedUrl);
         UrlsRepository.save(url);
     }
 }
