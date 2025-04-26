@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.dto.urls.UrlPage;
+import hexlet.code.dto.urls.UrlChecksPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlChecksRepository;
@@ -45,7 +45,7 @@ public class UrlsController {
             UrlUtils.alertFlash(ctx, "Страница уже существует", "danger");
             ctx.redirect(NamedRoutes.urlsPath());
 
-            log.warn("Попытка добавить уже существующий URL: {}", rawUrl);
+            log.warn("Страница уже существует: {}", rawUrl);
         }
     }
 
@@ -56,8 +56,6 @@ public class UrlsController {
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
 
-
-
         ctx.render("urls/index.jte", model("page", page));
     }
 
@@ -67,7 +65,10 @@ public class UrlsController {
                 .orElseThrow(() -> new RuntimeException("Url not found"));
         var urlChecks = UrlChecksRepository.getEntities();
 
-        var page = new UrlPage(url, urlChecks);
+        var page = new UrlChecksPage(url, urlChecks);
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
+
         ctx.render("urls/show.jte", model("page", page));
     }
 
@@ -75,7 +76,7 @@ public class UrlsController {
         String normalizedUrl = UrlUtils.normalizeUrl(rawUrl);
 
         if (UrlsRepository.findByName(normalizedUrl).isPresent()) {
-            throw new SQLDataException("URL уже существует: " + normalizedUrl);
+            throw new SQLDataException("Страница уже существует: " + normalizedUrl);
         }
         var url = new Url(normalizedUrl);
         UrlsRepository.save(url);
