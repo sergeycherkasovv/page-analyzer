@@ -4,6 +4,7 @@ import hexlet.code.model.Url;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ public class UrlsRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
         String sql = "INSERT INTO urls (name, created_at) VALUES (?, ?)";
 
+        url.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         try (var conn = dataSource.getConnection();
                 var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, url.getName());
@@ -37,7 +39,8 @@ public class UrlsRepository extends BaseRepository {
             if (resultSet.next()) {
                 var name = resultSet.getString("name");
                 var createdAt = resultSet.getTimestamp("created_at");
-                var url = new Url(name, createdAt);
+                var url = new Url(name);
+                url.setCreatedAt(createdAt);
                 url.setId(id);
                 return Optional.of(url);
             }
@@ -55,7 +58,8 @@ public class UrlsRepository extends BaseRepository {
             if (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 var createdAt = resultSet.getTimestamp("created_at");
-                var url = new Url(name, createdAt);
+                var url = new Url(name);
+                url.setCreatedAt(createdAt);
                 url.setId(id);
                 return Optional.of(url);
             }
@@ -74,7 +78,8 @@ public class UrlsRepository extends BaseRepository {
                 var id = resultSet.getLong("id");
                 var name = resultSet.getString("name");
                 var createdAt = resultSet.getTimestamp("created_at");
-                var url = new Url(name, createdAt);
+                var url = new Url(name);
+                url.setCreatedAt(createdAt);
                 url.setId(id);
                 result.add(url);
             }
