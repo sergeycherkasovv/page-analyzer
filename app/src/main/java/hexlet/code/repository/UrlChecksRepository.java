@@ -4,6 +4,7 @@ import hexlet.code.model.UrlCheck;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ public class UrlChecksRepository {
         String sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)"
                     + " VALUES (?, ?, ?, ?, ?, ?)";
 
+        check.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         try (var conn = dataSource.getConnection();
                 var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -54,9 +56,10 @@ public class UrlChecksRepository {
                 var title = resultSet.getString("title");
                 var description = resultSet.getString("description");
                 var createdAt = resultSet.getTimestamp("created_at");
-                var urlCheck = new UrlCheck(urlId, statusCode, h1, title, description, createdAt);
-                urlCheck.setId(id);
-                result.add(urlCheck);
+                var check = new UrlCheck(urlId, statusCode, h1, title, description);
+                check.setCreatedAt(createdAt);
+                check.setId(id);
+                result.add(check);
             }
             return result;
         }
@@ -80,9 +83,10 @@ public class UrlChecksRepository {
                 var description = resultSet.getString("description");
                 var createdAt = resultSet.getTimestamp("created_at");
 
-                var urlCheck = new UrlCheck(urlId, statusCode, title, h1, description, createdAt);
-                urlCheck.setId(checkId);
-                map.put(urlId, urlCheck);
+                var check = new UrlCheck(urlId, statusCode, title, h1, description);
+                check.setCreatedAt(createdAt);
+                check.setId(checkId);
+                map.put(urlId, check);
             }
             return map;
         }
