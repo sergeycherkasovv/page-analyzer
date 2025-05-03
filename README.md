@@ -30,35 +30,32 @@
 
 ## 🚀 Технологии
 
-- Java 17+  
-- [Javalin](https://javalin.io) (v6+)  
-- [HikariCP](https://github.com/brettwooldridge/HikariCP)  
-- [H2 Database](https://www.h2database.com)  
-- PostgreSQL  
+- Java 21  
+- [Javalin](https://javalin.io) — Фреймворк  
+- [HikariCP](https://github.com/brettwooldridge/HikariCP) 
+- [H2 Database](https://www.h2database.com) — Локальная БД
+- [PostgreSQL](https://www.postgresql.org/) — Серверная БД
 - [JTE](https://jte.gg) — шаблонизатор  
 - [Unirest](https://kong.github.io/unirest-java/) — HTTP-клиент  
 - [Jsoup](https://jsoup.org) — HTML-парсер  
 - [SLF4J Simple](https://www.slf4j.org/) — логирование  
 - [JUnit 5](https://junit.org/junit5/), 
   [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) — тестирование  
-- Gradle, GitHub Actions, Codecov — CI/CD и покрытие
+- [Gradle](https://gradle.org/), 
+  [GitHub Actions](https://github.com/features/actions),
+  [SonarQube](https://www.sonarsource.com/) — CI/CD и покрытие
 
 ## 🔧 Установка и запуск локально
 1. Клонировать репозиторий:  
    ```bash
    git clone https://github.com/sergeycherkasovv/java-project-72.git
    cd java-project-72
-    ```
-2. Настроить переменные окружения (по умолчанию используется H2 in-memory):
-    ```bash
-    # src/main/java/hexlet/code/util/DataBaseService.java  
-     JDBC_H2_URL="jdbc:h2:mem:project;DB_CLOSE_DELAY=-1" 
-    ```    
-3. Запустить приложение:
+    ``` 
+2. Запустить приложение:
     ```bash
     make start
    ```
-4. Запуск всех тестов:
+3. Запуск всех тестов:
     ``` bash
     make test
    ```
