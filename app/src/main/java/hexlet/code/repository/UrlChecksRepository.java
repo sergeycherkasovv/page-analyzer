@@ -41,7 +41,7 @@ public class UrlChecksRepository {
     }
 
     public static List<UrlCheck> getEntities() throws SQLException {
-        String sql = "SELECT * FROM url_checks";
+        String sql = "SELECT * FROM url_checks ORDER BY id";
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
