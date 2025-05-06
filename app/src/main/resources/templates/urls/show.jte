@@ -1,7 +1,9 @@
 @import hexlet.code.dto.urls.UrlChecksPage
 @import hexlet.code.util.NamedRoutes
+@import java.time.format.DateTimeFormatter
 
 @param UrlChecksPage page
+!{var formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");}
 
 @template.layout.page(
     page = page,
@@ -21,7 +23,7 @@
                     </tr>
                     <tr>
                         <td>Дата создания</td>
-                        <td>${page.getUrl().getFormatedTime()}</td>
+                        <td>${page.getUrl().getCreatedAt().toLocalDateTime().format(formatTime)}</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,7 +51,7 @@
                                 <td>${urlChecks.getTitle()}</td>
                                 <td>${urlChecks.getH1()}</td>
                                 <td>${urlChecks.getDescription()}</td>
-                                <td>${urlChecks.getFormatedTime()}</td>
+                                <td>${urlChecks.getCreatedAt().toLocalDateTime().format(formatTime)}</td>
                             </tr>
                         @endif
                     @endfor
