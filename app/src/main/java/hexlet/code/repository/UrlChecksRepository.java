@@ -18,21 +18,22 @@ public class UrlChecksRepository {
         String sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)"
                     + " VALUES (?, ?, ?, ?, ?, ?)";
 
-        check.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
         try (var conn = dataSource.getConnection();
                 var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+            Timestamp createdAt = new Timestamp(System.currentTimeMillis());
             stmt.setLong(1, check.getUrlId());
             stmt.setLong(2, check.getStatusCode());
             stmt.setString(3, check.getH1());
             stmt.setString(4, check.getTitle());
             stmt.setString(5, check.getDescription());
-            stmt.setTimestamp(6, check.getCreatedAt());
+            stmt.setTimestamp(6, createdAt);
             stmt.executeUpdate();
 
             var generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 check.setId(generatedKeys.getLong(1));
+                check.setCreatedAt(createdAt);
             } else {
                 throw new SQLException("BD have not returned an id after saving an entity");
             }
