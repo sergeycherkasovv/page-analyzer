@@ -69,7 +69,7 @@ public class UrlsRepository extends BaseRepository {
     }
 
     public static List<Url> getEntities() throws SQLException {
-        String sql = "SELECT * FROM urls";
+        String sql = "SELECT * FROM urls ORDER BY id";
 
         try (var conn = dataSource.getConnection();
                 var stmt = conn.prepareStatement(sql)) {
