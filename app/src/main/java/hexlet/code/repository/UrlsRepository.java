@@ -14,15 +14,16 @@ public class UrlsRepository extends BaseRepository {
     public static void save(Url url) throws SQLException {
         String sql = "INSERT INTO urls (name, created_at) VALUES (?, ?)";
 
-        url.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         try (var conn = dataSource.getConnection();
                 var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            Timestamp createdAt = new Timestamp(System.currentTimeMillis());
             stmt.setString(1, url.getName());
-            stmt.setTimestamp(2, url.getCreatedAt());
+            stmt.setTimestamp(2, createdAt);
             stmt.executeUpdate();
             var generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 url.setId(generatedKeys.getLong(1));
+                url.setCreatedAt(createdAt);
             } else {
                 throw new SQLException("BD have not returned an id after saving an entity");
             }
