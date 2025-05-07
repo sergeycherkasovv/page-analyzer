@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-public class UrlCheck implements DataFormated {
+public class UrlCheck {
     private Long id;
     private Long urlId;
     private int statusCode;
@@ -25,10 +25,5 @@ public class UrlCheck implements DataFormated {
         this.title = title;
         this.h1 = h1;
         this.description = description;
-    }
-
-    @Override
-    public final String getFormatedTime() {
-        return createdAt.toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }
