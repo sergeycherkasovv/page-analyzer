@@ -29,7 +29,7 @@
                             </td>
                             @if(page.getLastCheck().containsKey(url.getId()))
                                 <td>${page.getLastCheck().get(url.getId()).getCreatedAt()
-                                        .toLocalDateTime().format(formatTime}</td>
+                                        .toLocalDateTime().format(formatTime)}</td>
                                 <td>${page.getLastCheck().get(url.getId()).getStatusCode()}</td>
                             @else
                                 <td></td>
