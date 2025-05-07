@@ -3,6 +3,7 @@
 @import java.time.format.DateTimeFormatter
 
 @param UrlsPage page
+!{var formatTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");}
 
 @template.layout.page(
     page = page,
@@ -28,7 +29,7 @@
                             </td>
                             @if(page.getLastCheck().containsKey(url.getId()))
                                 <td>${page.getLastCheck().get(url.getId()).getCreatedAt()
-                                        .toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))}</td>
+                                        .toLocalDateTime().format(formatTime}</td>
                                 <td>${page.getLastCheck().get(url.getId()).getStatusCode()}</td>
                             @else
                                 <td></td>
