@@ -68,7 +68,8 @@ public class UrlChecksRepository {
 
     public static Map<Long, UrlCheck> findLatestChecks() throws SQLException {
         var map = new HashMap<Long, UrlCheck>();
-        var sql = "SELECT * FROM url_checks ORDER BY id";
+        var sql = "SELECT DISTINCT ON (url_id) * " +
+                "FROM url_checks ORDER BY url_id, created_at DESC";
 
         try (var conn = dataSource.getConnection();
              var stmt = conn.prepareStatement(sql)) {
