@@ -9,17 +9,12 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-public class Url implements DataFormated {
+public class Url {
     private Long id;
     private String name;
     private Timestamp createdAt;
 
     public Url(String name) {
         this.name = name;
-    }
-
-    @Override
-    public final String getFormatedTime() {
-        return createdAt.toLocalDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }
